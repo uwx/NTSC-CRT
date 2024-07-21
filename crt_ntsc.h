@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 /* crt_ntsc.h
  *
  * An interface to convert a digital image to an analog NTSC signal.
@@ -109,18 +111,18 @@ extern "C" {
 #define SYNC_LEVEL      -40
 
 struct NTSC_SETTINGS {
-    const unsigned char *data; /* image data */
-    int format;     /* pix format (one of the CRT_PIX_FORMATs in crt_core.h) */
-    int w, h;       /* width and height of image */
-    int raw;        /* 0 = scale image to fit monitor, 1 = don't scale */
-    int as_color;   /* 0 = monochrome, 1 = full color */
-    int field;      /* 0 = even, 1 = odd */
-    int frame;      /* 0 = even, 1 = odd */
-    int hue;        /* 0-359 */
-    int xoffset;    /* x offset in sample space. 0 is minimum value */
-    int yoffset;    /* y offset in # of lines. 0 is minimum value */
+    const uint8_t *data; /* image data */
+    int32_t format;     /* pix format (one of the CRT_PIX_FORMATs in crt_core.h) */
+    int32_t w, h;       /* width and height of image */
+    int32_t raw;        /* 0 = scale image to fit monitor, 1 = don't scale */
+    int32_t as_color;   /* 0 = monochrome, 1 = full color */
+    int32_t field;      /* 0 = even, 1 = odd */
+    int32_t frame;      /* 0 = even, 1 = odd */
+    int32_t hue;        /* 0-359 */
+    int32_t xoffset;    /* x offset in sample space. 0 is minimum value */
+    int32_t yoffset;    /* y offset in # of lines. 0 is minimum value */
     /* make sure your NTSC_SETTINGS struct is zeroed out before you do anything */
-    int iirs_initialized; /* internal state */
+    int32_t iirs_initialized; /* internal state */
 };
 
 #ifdef __cplusplus

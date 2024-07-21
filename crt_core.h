@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 /* crt_core.h
  *
  * The demodulator. This is also where you can define which system to emulate.
@@ -72,23 +74,23 @@ extern "C" {
 #define CRT_DO_HSYNC    1  /* look for HSYNC */
 
 struct CRT {
-    signed char analog[CRT_INPUT_SIZE];
-    signed char inp[CRT_INPUT_SIZE]; /* CRT input, can be noisy */
+    int8_t analog[CRT_INPUT_SIZE];
+    int8_t inp[CRT_INPUT_SIZE]; /* CRT input, can be noisy */
 
-    int outw, outh; /* output width/height */
-    int out_format; /* output pixel format (one of the CRT_PIX_FORMATs) */
-    unsigned char *out; /* output image */
+    int32_t outw, outh; /* output width/height */
+    int32_t out_format; /* output pixel format (one of the CRT_PIX_FORMATs) */
+    uint8_t *out; /* output image */
 
-    int hue, brightness, contrast, saturation; /* common monitor settings */
-    int black_point, white_point; /* user-adjustable */
-    int scanlines; /* leave gaps between lines if necessary */
-    int blend; /* blend new field onto previous image */
-    unsigned v_fac; /* factor to stretch img vertically onto the output img */
+    int32_t hue, brightness, contrast, saturation; /* common monitor settings */
+    int32_t black_point, white_point; /* user-adjustable */
+    int32_t scanlines; /* leave gaps between lines if necessary */
+    int32_t blend; /* blend new field onto previous image */
+    uint32_t v_fac; /* factor to stretch img vertically onto the output img */
 
     /* internal data */
-    int ccf[CRT_CC_VPER][CRT_CC_SAMPLES]; /* faster color carrier convergence */
-    int hsync, vsync; /* keep track of sync over frames */
-    int rn; /* seed for the 'random' noise */
+    int32_t ccf[CRT_CC_VPER][CRT_CC_SAMPLES]; /* faster color carrier convergence */
+    int32_t hsync, vsync; /* keep track of sync over frames */
+    int32_t rn; /* seed for the 'random' noise */
 };
 
 /* Initializes the library. Sets up filters.
